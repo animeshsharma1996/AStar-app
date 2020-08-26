@@ -1,0 +1,3 @@
+﻿  MyAStarPathFinding.cpp
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.h(16,2): warning C4091: 'static ': ignored on left of 'Draw' when no variable is declared
+  MyAStarPathFinding.vcxproj -> C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\Debug\MyAStarPathFinding.exe
