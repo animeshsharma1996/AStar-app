@@ -17,6 +17,7 @@ class Draw
 		sf::Sprite cell[50][28];
 
 		void CreateGrid();
+		void RefreshGrid();
 		int LoadBlockTexture();
 		int LoadStartTexture();
 		int LoadEndTexture();

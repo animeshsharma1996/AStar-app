@@ -1,7 +1,5 @@
 #include "Draw.h"
 
-
-
   /*  sf::Texture cellTexture;
     sf::Texture startTexture;
     sf::Texture endTexture;
@@ -22,6 +20,17 @@
             {
                 cell[i][j].setTexture(cellTexture);
                 cell[i][j].setPosition(size * i, size * j);
+            }
+        }
+    }
+
+    void Draw::RefreshGrid()
+    {
+        for (int i = 0; i < 50; ++i)
+        {
+            for (int j = 0; j < 28; ++j)
+            {
+                cell[i][j].setTexture(cellTexture);
             }
         }
     }
