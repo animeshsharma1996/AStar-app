@@ -6,21 +6,17 @@
 #include "Draw.h"
 using namespace sf;
 
-sf::Texture cellTexture;
-sf::Texture startTexture;
-sf::Texture endTexture;
-sf::Texture pathTexture;
-sf::Texture wallTexture;
 
-sf::Sprite cell[50][28];    //grids
 
 int main()
 {
         sf::RenderWindow window(sf::VideoMode(800, 450), "The AStar! (press SPACE)");
 
-        Draw::LoadBlockTexture(cellTexture);
-        Draw::LoadStartTexture(startTexture);
-        Draw::CreateGrid(cellTexture, cell);
+        Draw *draw = new Draw();
+
+        draw->LoadBlockTexture();
+        draw->LoadStartTexture();
+        draw->CreateGrid();
 
         while (window.isOpen())
         {
@@ -35,7 +31,7 @@ int main()
                 {
                     if (e.key.code == Mouse::Left)
                     {
-                        cell[abs(mousePosition.x / 16)][abs(mousePosition.y / 16)].setTexture(startTexture);
+                        draw->cell[abs(mousePosition.x / 16)][abs(mousePosition.y / 16)].setTexture(draw->startTexture);
                     }
                 }
             }
@@ -45,7 +41,7 @@ int main()
             for (int i = 0; i < 50; ++i)
                 for (int j = 0; j < 28; ++j)
                 {
-                    window.draw(cell[i][j]);
+                    window.draw(draw->cell[i][j]);
                 }
             window.display();
         }

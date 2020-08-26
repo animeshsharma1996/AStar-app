@@ -1,6 +1,19 @@
 #include "Draw.h"
 
-    void Draw::CreateGrid(sf::Texture cellTexture, sf::Sprite cell[][28])
+
+
+  /*  sf::Texture cellTexture;
+    sf::Texture startTexture;
+    sf::Texture endTexture;
+    sf::Texture pathTexture;
+    sf::Texture wallTexture;
+
+    sf::Sprite cell[50][28];*/
+
+    
+    Draw::Draw() {}
+
+    void Draw::CreateGrid()
     {
         int size = 16; //each block is 16 width wide
         for (int i = 0; i < 50; ++i)
@@ -13,7 +26,7 @@
         }
     }
 
-    int Draw::LoadBlockTexture(sf::Texture cellTexture)
+    int Draw::LoadBlockTexture()
     {
         if (!cellTexture.loadFromFile("images/block_idle.bmp"))
         {
@@ -22,7 +35,7 @@
         }
     }
 
-    int Draw::LoadStartTexture(sf::Texture startTexture)
+    int Draw::LoadStartTexture()
     {
         if (!startTexture.loadFromFile("images/block_start.bmp"))
         {
@@ -31,7 +44,7 @@
         }
     }
 
-    int Draw::LoadEndTexture(sf::Texture endTexture)
+    int Draw::LoadEndTexture()
     {
         if (!endTexture.loadFromFile("images/block_dest.bmp"))
         {
@@ -40,7 +53,7 @@
         }
     }
 
-    int Draw::LoadWallTexture(sf::Texture wallTexture)
+    int Draw::LoadWallTexture()
     {
         if (!wallTexture.loadFromFile("images/block_wall.bmp"))
         {
@@ -49,7 +62,7 @@
         }
     }
 
-    int Draw::LoadPathTexture(sf::Texture pathTexture)
+    int Draw::LoadPathTexture()
     {
         if (!pathTexture.loadFromFile("images/block_path.bmp"))
         {

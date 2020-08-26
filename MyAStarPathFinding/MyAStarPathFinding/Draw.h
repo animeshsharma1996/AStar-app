@@ -6,20 +6,22 @@
 class Draw
 {
 	public:
-		static sf::Texture cellTexture;
-		static sf::Texture startTexture;
-		static sf::Texture endTexture;
-		static sf::Texture pathTexture;
-		static sf::Texture wallTexture;
+		Draw();
+
+		sf::Texture cellTexture;
+		sf::Texture startTexture;
+		sf::Texture endTexture;
+		sf::Texture pathTexture;
+		sf::Texture wallTexture;
 
 		sf::Sprite cell[50][28];
 
-		static void CreateGrid(sf::Texture cellTexture, sf::Sprite cell[][28]);
-		static int LoadBlockTexture(sf::Texture cellTexture);
-		static int LoadStartTexture(sf::Texture startTexture);
-		static int LoadEndTexture(sf::Texture endTexture);
-		static int LoadPathTexture(sf::Texture pathTexture);
-		static int LoadWallTexture(sf::Texture wallTexture);
+		void CreateGrid();
+		int LoadBlockTexture();
+		int LoadStartTexture();
+		int LoadEndTexture();
+		int LoadPathTexture();
+		int LoadWallTexture();
 
 };
 

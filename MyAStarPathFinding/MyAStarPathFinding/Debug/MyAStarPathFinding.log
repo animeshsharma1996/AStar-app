@@ -1,9 +1,11 @@
 ﻿  Draw.cpp
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(12,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(12,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(33): warning C4715: 'Draw::LoadStartTexture': not all control paths return a value
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(51): warning C4715: 'Draw::LoadWallTexture': not all control paths return a value
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(60): warning C4715: 'Draw::LoadPathTexture': not all control paths return a value
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(24): warning C4715: 'Draw::LoadBlockTexture': not all control paths return a value
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(42): warning C4715: 'Draw::LoadEndTexture': not all control paths return a value
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(24,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(24,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  MyAStarPathFinding.cpp
+  Generating Code...
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(36): warning C4715: 'Draw::LoadBlockTexture': not all control paths return a value
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(63): warning C4715: 'Draw::LoadWallTexture': not all control paths return a value
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(54): warning C4715: 'Draw::LoadEndTexture': not all control paths return a value
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(45): warning C4715: 'Draw::LoadStartTexture': not all control paths return a value
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(72): warning C4715: 'Draw::LoadPathTexture': not all control paths return a value
   MyAStarPathFinding.vcxproj -> C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\Debug\MyAStarPathFinding.exe
