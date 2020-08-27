@@ -1,2 +1,7 @@
-﻿  MyAStarPathFinding.cpp
+﻿  AStar.cpp
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.h(14,2): warning C4091: 'static ': ignored on left of 'AStar' when no variable is declared
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.cpp(36,22): warning C4018: '<': signed/unsigned mismatch
+  Node.cpp
+  Generating Code...
   MyAStarPathFinding.vcxproj -> C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\Debug\MyAStarPathFinding.exe
+  MyAStarPathFinding.vcxproj -> C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\Debug\MyAStarPathFinding.pdb (Partial -> Full PDB)

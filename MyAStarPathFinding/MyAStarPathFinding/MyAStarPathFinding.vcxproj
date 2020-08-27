@@ -142,14 +142,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AStar.cpp" />
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="EventHandler.cpp" />
-    <ClCompile Include="MyAStarPathFinding.cpp" />
+    <ClCompile Include="MainPathFinding.cpp" />
+    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStar.h" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="MyAStarPathFinding.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

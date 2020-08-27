@@ -10,7 +10,6 @@
     sf::Sprite cell[50][28];*/
 
     
-Draw::Draw() {}
 
 void Draw::CreateGrid()
 {
@@ -19,8 +18,8 @@ void Draw::CreateGrid()
     {
         for (int j = 0; j < 28; ++j)
         {
-            cell[i][j].setTexture(cellTexture);
-            cell[i][j].setPosition(size * i, size * j);
+            grid[i][j].cell.setTexture(cellTexture);
+            grid[i][j].cell.setPosition(size * i, size * j);
         }
     }
 }
@@ -31,15 +30,15 @@ void Draw::RefreshGrid()
     {
         for (int j = 0; j < 28; ++j)
         {
-            cell[i][j].setTexture(cellTexture);
+            grid[i][j].cell.setTexture(cellTexture);
         }
     }
 
     if (EventHandler::GetStartPos().x >= 0 && EventHandler::GetStarted()) 
-        cell[EventHandler::GetStartPos().x][EventHandler::GetStartPos().y].setTexture(startTexture);
+        grid[EventHandler::GetStartPos().x][EventHandler::GetStartPos().y].cell.setTexture(startTexture);
 
     if (EventHandler::GetEndPos().x >= 0 && EventHandler::GetEnded())
-        cell[EventHandler::GetEndPos().x][EventHandler::GetEndPos().y].setTexture(endTexture);
+        grid[EventHandler::GetEndPos().x][EventHandler::GetEndPos().y].cell.setTexture(endTexture);
 }
 
 int Draw::LoadBlockTexture()

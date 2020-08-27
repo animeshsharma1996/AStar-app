@@ -2,11 +2,22 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include <iostream>
+#include "Node.h"
 
 class Draw
 {
 	public:
-		Draw();
+		Draw()
+		{
+			for (int i = 0; i < 50; ++i)
+			{
+				for (int j = 0; j < 28; ++j)
+				{
+					Node* node = new Node(i, j);
+					grid[i][j] = *node;
+				}
+			}
+		}
 
 		sf::Texture cellTexture;
 		sf::Texture startTexture;
@@ -14,7 +25,8 @@ class Draw
 		sf::Texture pathTexture;
 		sf::Texture wallTexture;
 
-		sf::Sprite cell[50][28];
+		Node grid[50][28];
+
 
 		void CreateGrid();
 		void RefreshGrid();
