@@ -2,20 +2,19 @@
 #include <SFML/OpenGL.hpp>
 #include <time.h>
 #include <iostream>
+#include <chrono>
 #include "Draw.h"
 #include "EventHandler.h"
 using namespace sf;
-
-
 
 void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
 {
     if (e.type == Event::MouseButtonPressed || e.type == Event::KeyPressed)
     {
-        EventHandler::CheckEnterStart(e);
         if (!EventHandler::GetStarted())
-        {    
-             if(e.key.code == Mouse::Left )
+        {
+             EventHandler::CheckEnterStart(e);
+             if(e.key.code == Mouse::Left)
              {  
                     draw->RefreshGrid();
                     EventHandler::SetStartPos(mousePosition);
@@ -24,14 +23,22 @@ void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
         }
         else
         {
-            EventHandler::CheckEnterEnd(e);
             if (!EventHandler::GetEnded())
             {
+                EventHandler::CheckEnterEnd(e);
                 if (e.key.code == Mouse::Left)
                 {
                     draw->RefreshGrid();
                     EventHandler::SetEndPos(mousePosition);
                     draw->cell[EventHandler::GetEndPos().x][EventHandler::GetEndPos().y].setTexture(draw->endTexture);
+                }
+            }
+            else
+            {
+                if (e.key.code == Mouse::Left)
+                {
+                    EventHandler::SetWallPos(mousePosition);
+                    draw->cell[abs(mousePosition.x/16)][abs(mousePosition.y/16)].setTexture(draw->wallTexture);
                 }
             }
         }
@@ -46,6 +53,8 @@ void DrawWindow()
 
     draw->LoadBlockTexture();
     draw->LoadStartTexture();
+    draw->LoadEndTexture();
+    draw->LoadWallTexture();
     draw->CreateGrid();
 
     while (window.isOpen())
@@ -57,7 +66,7 @@ void DrawWindow()
         {
             if (e.type == sf::Event::Closed) window.close();
             MouseEvent(e, draw, mousePosition);
-            std::cout << EventHandler::GetEnded() << std::endl;
+            
         }
 
         //draw cells
@@ -75,9 +84,8 @@ void DrawWindow()
 
 int main()
 {
-        DrawWindow();
-        
-        return 0;
+    DrawWindow();
+    return 0;
 }
 
 

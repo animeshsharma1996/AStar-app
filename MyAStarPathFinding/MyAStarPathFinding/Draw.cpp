@@ -1,4 +1,5 @@
 #include "Draw.h"
+#include "EventHandler.h"
 
   /*  sf::Texture cellTexture;
     sf::Texture startTexture;
@@ -9,74 +10,80 @@
     sf::Sprite cell[50][28];*/
 
     
-    Draw::Draw() {}
+Draw::Draw() {}
 
-    void Draw::CreateGrid()
+void Draw::CreateGrid()
+{
+    int size = 16; //each block is 16 px wide
+    for (int i = 0; i < 50; ++i)
     {
-        int size = 16; //each block is 16 width wide
-        for (int i = 0; i < 50; ++i)
+        for (int j = 0; j < 28; ++j)
         {
-            for (int j = 0; j < 28; ++j)
-            {
-                cell[i][j].setTexture(cellTexture);
-                cell[i][j].setPosition(size * i, size * j);
-            }
+            cell[i][j].setTexture(cellTexture);
+            cell[i][j].setPosition(size * i, size * j);
+        }
+    }
+}
+
+void Draw::RefreshGrid()
+{
+    for (int i = 0; i < 50; ++i)
+    {
+        for (int j = 0; j < 28; ++j)
+        {
+            cell[i][j].setTexture(cellTexture);
         }
     }
 
-    void Draw::RefreshGrid()
-    {
-        for (int i = 0; i < 50; ++i)
-        {
-            for (int j = 0; j < 28; ++j)
-            {
-                cell[i][j].setTexture(cellTexture);
-            }
-        }
-    }
+    if (EventHandler::GetStartPos().x >= 0 && EventHandler::GetStarted()) 
+        cell[EventHandler::GetStartPos().x][EventHandler::GetStartPos().y].setTexture(startTexture);
 
-    int Draw::LoadBlockTexture()
-    {
-        if (!cellTexture.loadFromFile("images/block_idle.bmp"))
-        {
-            std::cout << "Could not load block texture" << std::endl;
-            return 0;
-        }
-    }
+    if (EventHandler::GetEndPos().x >= 0 && EventHandler::GetEnded())
+        cell[EventHandler::GetEndPos().x][EventHandler::GetEndPos().y].setTexture(endTexture);
+}
 
-    int Draw::LoadStartTexture()
+int Draw::LoadBlockTexture()
+{
+    if (!cellTexture.loadFromFile("images/block_idle.bmp"))
     {
-        if (!startTexture.loadFromFile("images/block_start.bmp"))
-        {
-            std::cout << "Could not load start texture" << std::endl;
-            return 0;
-        }
+        std::cout << "Could not load block texture" << std::endl;
+        return 0;
     }
+}
 
-    int Draw::LoadEndTexture()
+int Draw::LoadStartTexture()
+{
+    if (!startTexture.loadFromFile("images/block_start.bmp"))
     {
-        if (!endTexture.loadFromFile("images/block_dest.bmp"))
-        {
-            std::cout << "Could not load end texture" << std::endl;
-            return 0;
-        }
+        std::cout << "Could not load start texture" << std::endl;
+        return 0;
     }
+}
 
-    int Draw::LoadWallTexture()
+int Draw::LoadEndTexture()
+{
+    if (!endTexture.loadFromFile("images/block_dest.bmp"))
     {
-        if (!wallTexture.loadFromFile("images/block_wall.bmp"))
-        {
-            std::cout << "Could not load wall texture" << std::endl;
-            return 0;
-        }
+        std::cout << "Could not load end texture" << std::endl;
+        return 0;
     }
+}
 
-    int Draw::LoadPathTexture()
+int Draw::LoadWallTexture()
+{
+    if (!wallTexture.loadFromFile("images/block_wall.bmp"))
     {
-        if (!pathTexture.loadFromFile("images/block_path.bmp"))
-        {
-            std::cout << "Could not load path texture" << std::endl;
-            return 0;
-        }
+        std::cout << "Could not load wall texture" << std::endl;
+        return 0;
     }
+}
+
+int Draw::LoadPathTexture()
+{
+    if (!pathTexture.loadFromFile("images/block_path.bmp"))
+    {
+        std::cout << "Could not load path texture" << std::endl;
+        return 0;
+    }
+}
 
