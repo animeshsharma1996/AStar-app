@@ -12,6 +12,13 @@ Node::Node(int x, int y)
 
 int Node::FCost() {	return (gCost+hCost); }
 
+int Node::GetGCost() { return gCost; }
+
+int Node::GetHCost() { return hCost; }
+
+void Node::SetGCost(int value) { gCost = value; }
+
+void Node::SetHCost(int value) { hCost = value; }
 
 Node::Node()
 {

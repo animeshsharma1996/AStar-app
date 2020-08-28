@@ -54,7 +54,7 @@ void GeneratePath(Draw* draw)
     Node* end = new Node(endPos.x, endPos.x);
 
     draw->CreatePath(AStar::FindPath(draw,draw->grid,start, end));
-    draw->CreateOpenNodes(AStar::openList);
+    //draw->CreateOpenNodes(AStar::openList);
 }
 
 void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
@@ -93,6 +93,7 @@ void DrawWindow()
     draw->LoadEndTexture();
     draw->LoadWallTexture();
     draw->LoadNodesTexture();
+    draw->LoadPathTexture();
     draw->CreateGrid();
 
     while (window.isOpen())

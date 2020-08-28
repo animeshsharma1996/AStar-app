@@ -48,15 +48,9 @@ void Draw::CreatePath(vector<Node> path)
     
 }
 
-void Draw::CreateOpenNodes(vector<Node> nodes)
+void Draw::CreateOpenNodes(Node node)
 {
-    if (!nodes.empty())
-    {
-        for (int i = 0; i < nodes.size(); ++i)
-        {
-            grid[nodes[i].gridX][nodes[i].gridY].cell.setTexture(nodeTexture);
-        }
-    }
+    node.cell.setTexture(nodeTexture);    
 }
 
 int Draw::LoadBlockTexture()

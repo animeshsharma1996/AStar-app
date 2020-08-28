@@ -31,7 +31,7 @@ class Draw
 		void CreateGrid();
 		void RefreshGrid();
 		void CreatePath(vector<Node> path);
-		void CreateOpenNodes(vector<Node> nodes);
+		void CreateOpenNodes(Node node);
 		int LoadBlockTexture();
 		int LoadStartTexture();
 		int LoadEndTexture();

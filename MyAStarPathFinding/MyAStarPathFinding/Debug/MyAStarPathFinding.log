@@ -1,8 +1,13 @@
 ﻿  AStar.cpp
 C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.h(14,2): warning C4091: 'static ': ignored on left of 'AStar' when no variable is declared
+  Draw.cpp
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(20,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(20,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp(43,23): warning C4018: '<': signed/unsigned mismatch
   MainPathFinding.cpp
 C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.h(14,2): warning C4091: 'static ': ignored on left of 'AStar' when no variable is declared
 C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\MainPathFinding.cpp(41,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\MainPathFinding.cpp(42,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Node.cpp
   Generating Code...
-  MyAStarPathFinding.vcxproj -> C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\Debug\MyAStarPathFinding.exe
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Draw.cpp : fatal error C1090: PDB API call failed, error code '3': C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Debug\vc142.pdb
