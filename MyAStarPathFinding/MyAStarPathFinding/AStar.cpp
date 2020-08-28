@@ -54,7 +54,7 @@ vector<Node> AStar::FindPath(Node* start, Node* end)
 
 			if (&neighbours[i] == end)												       //d) i) if successor is the goal, stop search
 			{																				
-				vector<Node> path;
+				vector<Node> path;	
 				Node tempCNode = currentNode;
 				path.push_back(currentNode);
 				while (tempCNode.previousNode != start)
@@ -65,9 +65,9 @@ vector<Node> AStar::FindPath(Node* start, Node* end)
 				return path;
 			}																				
 		
-			neighbours[i].gCost = currentNode.gCost + Heuristic(&neighbours[i], &currentNode);
-			neighbours[i].hCost = Heuristic(&neighbours[i], end);
-
+			neighbours[i].gCost = currentNode.gCost + Heuristic(&neighbours[i], &currentNode);		//successor.g = q.g + distance between successor and q	
+			neighbours[i].hCost = Heuristic(&neighbours[i], end);									//successor.h = distance from goal to successor
+																									
 			vector<Node>::iterator neighboursIt = std::find(openList.begin(), openList.end(), neighbours[i]);
 			if (neighboursIt != openList.end())											        // ii) if a node with the same position as        
 			{																					// successor is in the OPEN list which has a

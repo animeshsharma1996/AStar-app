@@ -7,9 +7,7 @@
     sf::Texture pathTexture;
     sf::Texture wallTexture;
 
-    sf::Sprite cell[50][28];*/
-
-    
+    sf::Sprite cell[50][28];*/   
 
 void Draw::CreateGrid()
 {
@@ -34,10 +32,10 @@ void Draw::RefreshGrid()
         }
     }
 
-    if (EventHandler::GetStartPos().x >= 0 && EventHandler::GetStarted()) 
+    if (EventHandler::GetStartPos().x >= 0 && EventHandler::GetStartCheck()) 
         grid[EventHandler::GetStartPos().x][EventHandler::GetStartPos().y].cell.setTexture(startTexture);
 
-    if (EventHandler::GetEndPos().x >= 0 && EventHandler::GetEnded())
+    if (EventHandler::GetEndPos().x >= 0 && EventHandler::GetEndCheck())
         grid[EventHandler::GetEndPos().x][EventHandler::GetEndPos().y].cell.setTexture(endTexture);
 }
 

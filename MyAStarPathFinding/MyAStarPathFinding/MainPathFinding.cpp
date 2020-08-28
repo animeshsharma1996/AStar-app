@@ -7,48 +7,66 @@
 #include "EventHandler.h"
 using namespace sf;
 
+void HandleStartCheck(Event e, Draw* draw, Vector2i mousePosition, Vector2i startPos)
+{
+    EventHandler::CheckEnterStart(e);
+    if (e.key.code == Mouse::Left)
+    {
+        draw->RefreshGrid();
+        EventHandler::SetStartPos(mousePosition);
+        draw->grid[startPos.x][startPos.y].cell.setTexture(draw->startTexture);
+    }
+}
+
+void HandleEndCheck(Event e, Draw* draw, Vector2i mousePosition, Vector2i endPos)
+{
+    EventHandler::CheckEnterEnd(e);
+    if (e.key.code == Mouse::Left)
+    {
+        draw->RefreshGrid();
+        EventHandler::SetEndPos(mousePosition);
+        draw->grid[endPos.x][endPos.y].cell.setTexture(draw->endTexture);
+    }
+}
+
+void HandleWallsCheck(Event e, Draw* draw, Vector2i mousePosition, Vector2i startPos, Vector2i endPos)
+{
+    EventHandler::CheckEnterWallsSet(e);
+    if (e.key.code == Mouse::Left && mousePosition != 16 * startPos && mousePosition != 16 * endPos)
+    {
+        EventHandler::SetWallsPos(mousePosition);
+        draw->grid[abs(mousePosition.x / 16)][abs(mousePosition.y / 16)].cell.setTexture(draw->wallTexture);
+    }
+}
 
 void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
 {
+    bool startBlock = EventHandler::GetStartCheck();
+    bool endBlock = EventHandler::GetEndCheck();
+    bool wallsBlock = EventHandler::GetWallsCheck();
+    Vector2i startPos = EventHandler::GetStartPos();
+    Vector2i endPos = EventHandler::GetEndPos();
+
     if (e.type == Event::MouseButtonPressed || e.type == Event::KeyPressed)
     {
-        if (!EventHandler::GetStarted())
+        if (!startBlock)
         {
-             EventHandler::CheckEnterStart(e);
-             if(e.key.code == Mouse::Left)
-             {  
-                    draw->RefreshGrid();
-                    EventHandler::SetStartPos(mousePosition);
-                    draw->grid[EventHandler::GetStartPos().x][EventHandler::GetStartPos().y].cell.setTexture(draw->startTexture);
-             }
+            HandleStartCheck(e,draw,mousePosition,startPos);
         }
-        else
+        else  if (!endBlock)
         {
-            if (!EventHandler::GetEnded())
-            {
-                EventHandler::CheckEnterEnd(e);
-                if (e.key.code == Mouse::Left)
-                {
-                    draw->RefreshGrid();
-                    EventHandler::SetEndPos(mousePosition);
-                    draw->grid[EventHandler::GetEndPos().x][EventHandler::GetEndPos().y].cell.setTexture(draw->endTexture);
-                }
-            }
-            else
-            {
-                if (e.key.code == Mouse::Left)
-                {
-                    EventHandler::SetWallPos(mousePosition);
-                    draw->grid[abs(mousePosition.x/16)][abs(mousePosition.y/16)].cell.setTexture(draw->wallTexture);
-                }
-            }
+            HandleStartCheck(e, draw, mousePosition, endPos);
+        }
+        else  if (!wallsBlock)
+        {
+            HandleWallsCheck(e, draw, mousePosition, startPos, endPos);
         }
     }
 }
 
 void DrawWindow()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 450), "The AStar! (press SPACE)");
+    sf::RenderWindow window(sf::VideoMode(800, 450), "The AStar! (Press Enter to complete each event)");
 
     Draw* draw = new Draw();
 
@@ -67,9 +85,8 @@ void DrawWindow()
         {
             if (e.type == sf::Event::Closed) window.close();
             MouseEvent(e, draw, mousePosition);
-            
         }
-
+        std::cout << EventHandler::GetStartPos << std::endl;
         //draw cells
         window.clear();
         for (int i = 0; i < 50; ++i)

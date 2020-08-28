@@ -1,8 +1,5 @@
 #include "Node.h"
 
-
-
-
 Node::Node(int x, int y)
 {
 	gridX = x;
