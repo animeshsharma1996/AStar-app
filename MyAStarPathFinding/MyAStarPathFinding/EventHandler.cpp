@@ -22,21 +22,21 @@ bool EventHandler::GetWallsCheck() { return areWallsSet; }
 
 void EventHandler::SetStartPos(sf::Vector2i mousePosition)
 {
-	startPos.x = abs(mousePosition.x / 16);
-	startPos.y = abs(mousePosition.y / 16);
+	startPos.x = floor(mousePosition.x / 16);
+	startPos.y = (mousePosition.y / 16);
 }
 
 void EventHandler::SetEndPos(sf::Vector2i mousePosition)
 {
-	endPos.x = abs(mousePosition.x / 16);
-	endPos.y = abs(mousePosition.y / 16);
+	endPos.x = floor(mousePosition.x / 16);
+	endPos.y = floor(mousePosition.y / 16);
 }
 
 void EventHandler::SetWallsPos(sf::Vector2i mousePosition)
 {
 	sf::Vector2i wallPos;
-	wallPos.x = abs(mousePosition.x / 16);
-	wallPos.y = abs(mousePosition.y / 16);
+	wallPos.x = floor(mousePosition.x / 16);
+	wallPos.y = floor(mousePosition.y / 16);
 	wallsPositions.push_back(wallPos);
 }
 
@@ -48,19 +48,39 @@ std::vector<sf::Vector2i> EventHandler::GetWallPos() { return wallsPositions; }
 
 void EventHandler::CheckEnterStart(sf::Event e)
 {
-	if (e.key.code == sf::Keyboard::Enter && (GetStartPos().x >= 0)) 
+	if (e.key.code == sf::Keyboard::Enter && (GetStartPos().x >= 0))
+	{
 		SetStartCheck(true);
+		std::cout << "Start is Set" << std::endl;
+	}
 }
 
 void EventHandler::CheckEnterEnd(sf::Event e)
 {
 	if (e.key.code == sf::Keyboard::Enter && GetStartCheck() && (GetEndPos().x >= 0))
+	{
 		SetEndCheck(true);
+		std::cout << "End is Set" << std::endl;
+	}
 }
 
 void EventHandler::CheckEnterWallsSet(sf::Event e)
 {
-	if (e.key.code == sf::Keyboard::Enter && GetStartCheck() && GetWallsCheck() && (!wallsPositions.empty()))
+	if (e.key.code == sf::Keyboard::Enter && GetStartCheck() && GetEndCheck() && (!wallsPositions.empty()))
+	{
 		SetWallsCheck(true);
+		std::cout << "Walls are Set" << std::endl;
+	}
+}
+
+bool EventHandler::CheckWallsOverlap(sf::Vector2i mousePosition)
+{
+	bool startOvelapX = (floor(mousePosition.x / 16) == startPos.x);
+	bool startOvelapY = (floor(mousePosition.y / 16) == startPos.y);
+
+	bool endOvelapX = (floor(mousePosition.x / 16) == endPos.x);
+	bool endOvelapY = (floor(mousePosition.y / 16) == endPos.y);
+
+	return ((startOvelapX && startOvelapY) || (endOvelapX && endOvelapY));
 }
 

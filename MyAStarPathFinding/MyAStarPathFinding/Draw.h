@@ -24,16 +24,19 @@ class Draw
 		sf::Texture endTexture;
 		sf::Texture pathTexture;
 		sf::Texture wallTexture;
+		sf::Texture nodeTexture;
 
 		Node grid[50][28];
 
-
 		void CreateGrid();
 		void RefreshGrid();
+		void CreatePath(vector<Node> path);
+		void CreateOpenNodes(vector<Node> nodes);
 		int LoadBlockTexture();
 		int LoadStartTexture();
 		int LoadEndTexture();
 		int LoadPathTexture();
+		int LoadNodesTexture();
 		int LoadWallTexture();
 
 };

@@ -22,6 +22,8 @@ class EventHandler
 		static void CheckEnterEnd(sf::Event e);
 		static void CheckEnterWallsSet(sf::Event e);
 
+		static bool CheckWallsOverlap(sf::Vector2i mousePosition);
+
 	private :
 		static bool hasStarted ;
 		static bool hasEnded ;

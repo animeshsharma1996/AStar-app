@@ -19,7 +19,7 @@ class Node
         sf::Sprite cell;
         void AddNeighbours(Node grid[][28],int x, int y);
         int FCost();
-    private :
+        bool operator ==(const Node& B);
         
 };
 

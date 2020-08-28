@@ -1,26 +1,8 @@
 ﻿  AStar.cpp
 C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.h(14,2): warning C4091: 'static ': ignored on left of 'AStar' when no variable is declared
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.cpp(35,22): warning C4018: '<': signed/unsigned mismatch
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.cpp(49,21): warning C4018: '<': signed/unsigned mismatch
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xutility(4851,21): error C2676: binary '==': 'Node' does not define this operator or a conversion to a type acceptable to the predefined operator
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xutility(4884): message : see reference to function template instantiation '_InIt std::_Find_unchecked1<_InIt,_Ty>(_InIt,const _InIt,const _Ty &,std::false_type)' being compiled
-          with
-          [
-              _InIt=Node *,
-              _Ty=Node
-          ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xutility(4890): message : see reference to function template instantiation '_InIt std::_Find_unchecked<Node*,_Ty>(const _InIt,const _InIt,const _Ty &)' being compiled
-          with
-          [
-              _InIt=Node *,
-              _Ty=Node
-          ]
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.cpp(71): message : see reference to function template instantiation '_InIt std::find<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Ty>(_InIt,const _InIt,const _Ty &)' being compiled
-          with
-          [
-              _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Node>>>,
-              _Ty=Node
-          ]
   MainPathFinding.cpp
-C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\MainPathFinding.cpp : fatal error C1041: cannot open program database 'C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\Debug\vc142.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.h(14,2): warning C4091: 'static ': ignored on left of 'AStar' when no variable is declared
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\MainPathFinding.cpp(41,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\MainPathFinding.cpp(42,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Generating Code...
+  MyAStarPathFinding.vcxproj -> C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\Debug\MyAStarPathFinding.exe

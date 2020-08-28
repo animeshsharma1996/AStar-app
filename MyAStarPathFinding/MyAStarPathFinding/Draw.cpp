@@ -18,6 +18,8 @@ void Draw::CreateGrid()
         {
             grid[i][j].cell.setTexture(cellTexture);
             grid[i][j].cell.setPosition(size * i, size * j);
+            grid[i][j].gridX = i; 
+            grid[i][j].gridX = j; 
         }
     }
 }
@@ -26,10 +28,7 @@ void Draw::RefreshGrid()
 {
     for (int i = 0; i < 50; ++i)
     {
-        for (int j = 0; j < 28; ++j)
-        {
-            grid[i][j].cell.setTexture(cellTexture);
-        }
+        for (int j = 0; j < 28; ++j)  grid[i][j].cell.setTexture(cellTexture);
     }
 
     if (EventHandler::GetStartPos().x >= 0 && EventHandler::GetStartCheck()) 
@@ -37,6 +36,27 @@ void Draw::RefreshGrid()
 
     if (EventHandler::GetEndPos().x >= 0 && EventHandler::GetEndCheck())
         grid[EventHandler::GetEndPos().x][EventHandler::GetEndPos().y].cell.setTexture(endTexture);
+}
+
+void Draw::CreatePath(vector<Node> path)
+{
+    for (int i = 0; i < path.size(); ++i)
+    {
+        grid[path[i].gridX][path[i].gridY].cell.setTexture(pathTexture);
+        std::cout << path[i].gridX<< path[i].gridY << std::endl;
+    }
+    
+}
+
+void Draw::CreateOpenNodes(vector<Node> nodes)
+{
+    if (!nodes.empty())
+    {
+        for (int i = 0; i < nodes.size(); ++i)
+        {
+            grid[nodes[i].gridX][nodes[i].gridY].cell.setTexture(nodeTexture);
+        }
+    }
 }
 
 int Draw::LoadBlockTexture()
@@ -84,3 +104,12 @@ int Draw::LoadPathTexture()
     }
 }
 
+
+int Draw::LoadNodesTexture()
+{
+    if (!nodeTexture.loadFromFile("images/block_open.bmp"))
+    {
+        std::cout << "Could not Node texture" << std::endl;
+        return 0;
+    }
+}

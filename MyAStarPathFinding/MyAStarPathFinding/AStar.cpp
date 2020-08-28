@@ -1,6 +1,8 @@
 #include "AStar.h"
 #include <iostream>
 
+vector<Node> AStar::openList;
+
 bool AStar::IsValidPath(Node* start, Node* end)
 {
 	if(end == NULL)
@@ -20,80 +22,100 @@ int AStar::Heuristic(Node* a, Node* b)
 	return (abs(a->gridX - b->gridX) + abs(a->gridY - b->gridY));
 }
 
-vector<Node> AStar::FindPath(Node* start, Node* end)
+vector<Node> AStar::FindPath(Draw* draw,Node grid[][28], Node* start, Node* end)
 {
-	if (!IsValidPath(start, end))  cout << "Path is not valid" << endl;
+	if (!IsValidPath(start, end))  
+		cout << "Path is not valid" << endl;
 
-	vector<Node> openList;
+	//vector<Node> openList;
 	vector<Node> closedList;
 	openList.push_back(*start);
 
+	start->gCost = 0;
+	start->hCost = Heuristic(start, end);
+
 	while (!openList.empty())
 	{
-		vector<Node>::iterator it = openList.begin();
 		int leastFNode = 0;                                                                  //a) find the node with the least f in open list
-		for (int i = 0 ; i < openList.size() ; ++i, ++it)
+		for (size_t i = 0 ; i < openList.size() ; ++i)
 		{
-			if (openList[i].FCost() < openList[leastFNode].FCost()) { leastFNode = i;}
+			if (openList[i].FCost() < openList[leastFNode].FCost()) 
+			{ 
+				leastFNode = i; 
+			}
 			else if (openList[i].FCost() == openList[leastFNode].FCost())					 //Tie breaker 							
 			{
-				if (openList[i].hCost < openList[leastFNode].hCost)
-					leastFNode = i;
+				if (openList[i].hCost < openList[leastFNode].hCost) 
+				{ 
+					leastFNode = i; 
+				}
 			}
+
 		}
-		
 		Node currentNode = openList[leastFNode]; 
-		openList.erase(it);															        //b) Pop leastFNode off the open list
-
-		vector<Node> neighbours = currentNode.neighbours;								    //c) Generate neighbours for leastFNode
-		for (int i = 0; i < neighbours.size(); ++i)
+																							//d) i) if successor is the goal, stop search
+		if (&currentNode == end)
 		{
-			neighbours[i].previousNode = &currentNode;
-
-			if (neighbours[i].isWall) { closedList.push_back(neighbours[i]); continue; }
-
-			if (&neighbours[i] == end)												       //d) i) if successor is the goal, stop search
-			{																				
-				vector<Node> path;	
-				Node tempCNode = currentNode;
-				path.push_back(currentNode);
-				while (tempCNode.previousNode != start)
-				{
-					path.push_back(*tempCNode.previousNode);
-					tempCNode = *tempCNode.previousNode;
-				}
-				return path;
-			}																				
-		
-			neighbours[i].gCost = currentNode.gCost + Heuristic(&neighbours[i], &currentNode);		//successor.g = q.g + distance between successor and q	
-			neighbours[i].hCost = Heuristic(&neighbours[i], end);									//successor.h = distance from goal to successor
-																									
-			vector<Node>::iterator neighboursIt = std::find(openList.begin(), openList.end(), neighbours[i]);
-			if (neighboursIt != openList.end())											        // ii) if a node with the same position as        
-			{																					// successor is in the OPEN list which has a
-				if (currentNode.FCost() < neighbours[i].FCost())								// lower f than successor, skip this successor
-				{
-					continue;
-				}
+			vector<Node> path;
+			Node tempCNode = currentNode;
+			path.push_back(currentNode);
+			while (tempCNode.previousNode != start)
+			{
+				path.push_back(*tempCNode.previousNode);
+				tempCNode = *tempCNode.previousNode;
 			}
+			return path;
+		}
 
-			if (neighboursIt != closedList.end())												// iii) if a node with the same position as 	
-			{																					// successor  is in the CLOSED list which has 
-				if (currentNode.FCost() < neighbours[i].FCost())								// a lower f than successor, skip this successor
-				{																				// otherwise, add  the node to the open list
-					continue;
+		vector<Node>::iterator it = openList.begin() + leastFNode;
+		openList.erase(it);															        //b) Pop leastFNode off the open list
+		closedList.push_back(currentNode);
+
+		currentNode.cell.setColor(sf::Color::Red);
+		currentNode.AddNeighbours(grid,currentNode.gridX,currentNode.gridY);
+		vector<Node> neighbours = currentNode.neighbours;								    //c) Generate neighbours for leastFNode
+		for (size_t i = 0; i < neighbours.size(); ++i)
+		{
+			if (neighbours[i].isWall && &neighbours[i] != end)
+			{ 
+				closedList.push_back(neighbours[i]); 
+				continue; 
+			}							
+
+	/*		std::cout << "Current" << currentNode.gridX << " " << currentNode.gridY << " ";
+			std::cout << "Neighbour" <<neighbours[i].gridX << " " << neighbours[i].gridY << std::endl;*/
+
+			vector<Node>::iterator iterator2 = std::find(closedList.begin(), closedList.end(), neighbours[i]);
+			if (iterator2 == closedList.end())												// iii) if a node with the same position as 	
+			{									
+				int tempGCost = currentNode.gCost + 1;
+				bool newPath = false;
+
+				vector<Node>::iterator iterator1 = std::find(openList.begin(), openList.end(), neighbours[i]);
+				if (iterator1 != openList.end())											        // ii) if a node with the same position as        
+				{																					
+					if (tempGCost < neighbours[i].gCost)
+					{
+						neighbours[i].gCost = tempGCost;
+						newPath = true;
+					}
 				}
 				else
 				{
+					neighbours[i].gCost = tempGCost;
+					newPath = true;
 					openList.push_back(neighbours[i]);
 				}
-			}
 
+				if (newPath)
+				{
+					neighbours[i].hCost = Heuristic(&neighbours[i],end);
+					neighbours[i].previousNode = &currentNode;
+				}
+			}
 		}
 
-		closedList.push_back(currentNode);												    //e) push q on the closed list
 	}
 
 	return vector<Node>();
-	cout << "No Path Found" << endl;
 }

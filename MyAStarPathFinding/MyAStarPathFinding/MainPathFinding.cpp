@@ -5,38 +5,56 @@
 #include <chrono>
 #include "Draw.h"
 #include "EventHandler.h"
+#include "AStar.h"
 using namespace sf;
 
-void HandleStartCheck(Event e, Draw* draw, Vector2i mousePosition, Vector2i startPos)
+void HandleStartCheck(Event e, Draw* draw, Vector2i mousePosition)
 {
     EventHandler::CheckEnterStart(e);
     if (e.key.code == Mouse::Left)
     {
         draw->RefreshGrid();
         EventHandler::SetStartPos(mousePosition);
+        Vector2i startPos = EventHandler::GetStartPos();
         draw->grid[startPos.x][startPos.y].cell.setTexture(draw->startTexture);
     }
 }
 
-void HandleEndCheck(Event e, Draw* draw, Vector2i mousePosition, Vector2i endPos)
+void HandleEndCheck(Event e, Draw* draw, Vector2i mousePosition)
 {
     EventHandler::CheckEnterEnd(e);
     if (e.key.code == Mouse::Left)
     {
         draw->RefreshGrid();
         EventHandler::SetEndPos(mousePosition);
+        Vector2i endPos = EventHandler::GetEndPos();
         draw->grid[endPos.x][endPos.y].cell.setTexture(draw->endTexture);
     }
 }
 
-void HandleWallsCheck(Event e, Draw* draw, Vector2i mousePosition, Vector2i startPos, Vector2i endPos)
+void HandleWallsCheck(Event e, Draw* draw, Vector2i mousePosition)
 {
     EventHandler::CheckEnterWallsSet(e);
-    if (e.key.code == Mouse::Left && mousePosition != 16 * startPos && mousePosition != 16 * endPos)
+    if (e.key.code == Mouse::Left && (!EventHandler::CheckWallsOverlap(mousePosition)))
     {
         EventHandler::SetWallsPos(mousePosition);
-        draw->grid[abs(mousePosition.x / 16)][abs(mousePosition.y / 16)].cell.setTexture(draw->wallTexture);
+        int X = floor(mousePosition.x / 16);
+        int Y = floor(mousePosition.y / 16);
+        draw->grid[X][Y].cell.setTexture(draw->wallTexture);
+        draw->grid[X][Y].isWall = true;
     }
+}
+
+void GeneratePath(Draw* draw)
+{
+    Vector2i startPos = EventHandler::GetStartPos();
+    Vector2i endPos = EventHandler::GetEndPos();
+
+    Node* start = new Node(startPos.x,startPos.y);
+    Node* end = new Node(endPos.x, endPos.x);
+
+    draw->CreatePath(AStar::FindPath(draw,draw->grid,start, end));
+    draw->CreateOpenNodes(AStar::openList);
 }
 
 void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
@@ -44,24 +62,24 @@ void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
     bool startBlock = EventHandler::GetStartCheck();
     bool endBlock = EventHandler::GetEndCheck();
     bool wallsBlock = EventHandler::GetWallsCheck();
-    Vector2i startPos = EventHandler::GetStartPos();
-    Vector2i endPos = EventHandler::GetEndPos();
 
     if (e.type == Event::MouseButtonPressed || e.type == Event::KeyPressed)
     {
         if (!startBlock)
         {
-            HandleStartCheck(e,draw,mousePosition,startPos);
+            HandleStartCheck(e,draw,mousePosition);
         }
         else  if (!endBlock)
         {
-            HandleStartCheck(e, draw, mousePosition, endPos);
+            HandleEndCheck(e,draw,mousePosition);
         }
         else  if (!wallsBlock)
         {
-            HandleWallsCheck(e, draw, mousePosition, startPos, endPos);
+            HandleWallsCheck(e,draw,mousePosition);
         }
     }
+
+    if (wallsBlock) GeneratePath(draw);
 }
 
 void DrawWindow()
@@ -74,6 +92,7 @@ void DrawWindow()
     draw->LoadStartTexture();
     draw->LoadEndTexture();
     draw->LoadWallTexture();
+    draw->LoadNodesTexture();
     draw->CreateGrid();
 
     while (window.isOpen())
@@ -86,7 +105,7 @@ void DrawWindow()
             if (e.type == sf::Event::Closed) window.close();
             MouseEvent(e, draw, mousePosition);
         }
-        std::cout << EventHandler::GetStartPos << std::endl;
+        
         //draw cells
         window.clear();
         for (int i = 0; i < 50; ++i)
