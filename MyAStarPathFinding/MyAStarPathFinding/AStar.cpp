@@ -67,19 +67,19 @@ vector<Node> AStar::FindPath(Draw* draw, Node grid[][28], Node start, Node end)
 																								//d) i) if successor is the goal, stop search
 		if (Comparer(&currentNode, &end))
 		{
-			Node* tempCNode = &currentNode;
+			Node tempCNode = currentNode;
 			cout << currentNode.GetX() << " " << currentNode.GetY() << endl;
-			cout << currentNode.GetPreviousNode()->GetX() << " " << currentNode.GetPreviousNode()->GetY() << endl;
-			cout << tempCNode->GetPreviousNode()->GetX() << " " << tempCNode->GetPreviousNode()->GetY() << endl;
+			cout << currentNode.GetPreviousNode().GetX() << " " << currentNode.GetPreviousNode().GetY() << endl;
+			cout << tempCNode.GetPreviousNode().GetX() << " " << tempCNode.GetPreviousNode().GetY() << endl;
 			path.push_back(currentNode);
-			if (tempCNode->GetPreviousNode() != nullptr)
+			if (&tempCNode.GetPreviousNode() != nullptr)
 			{
 				cout << " ARe you working  " << endl;
-				while (!Comparer(tempCNode->GetPreviousNode(), &start))
+				while (!Comparer(&tempCNode.GetPreviousNode(), &start))
 				{
-					tempCNode = tempCNode->GetPreviousNode();
-					cout << tempCNode->GetX() << " " << tempCNode->GetY() << endl;
-					path.push_back(*tempCNode);
+					tempCNode = tempCNode.GetPreviousNode();
+					cout << tempCNode.GetX() << " " << tempCNode.GetY() << endl;
+					path.push_back(tempCNode);
 				}
 			}
 			else
@@ -101,9 +101,7 @@ vector<Node> AStar::FindPath(Draw* draw, Node grid[][28], Node start, Node end)
 
 		for (size_t i = 0; i < neighbours.size(); ++i)
 		{
-			Node* prev = nullptr;
-			prev = &currentNode;
-			neighbours[i].SetPreviousNode(prev);
+			neighbours[i].SetPreviousNode(currentNode);
 			if (neighbours[i].isWall)
 			{
 				closedList.push_back(neighbours[i]);
