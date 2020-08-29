@@ -1,3 +1,6 @@
-﻿  AStar.cpp
+﻿  MainPathFinding.cpp
 C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\AStar.h(15,2): warning C4091: 'static ': ignored on left of 'AStar' when no variable is declared
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\MainPathFinding.cpp(41,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\MainPathFinding.cpp(42,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\MyAStarPathFinding\MainPathFinding.cpp(58,23): warning C4018: '<': signed/unsigned mismatch
   MyAStarPathFinding.vcxproj -> C:\Projects\C++\MyAStar\Pathfinder\AStar\MyAStarPathFinding\Debug\MyAStarPathFinding.exe

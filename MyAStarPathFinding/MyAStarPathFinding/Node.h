@@ -18,14 +18,14 @@ class Node
         int GetY();
         int GetGCost();
         int GetHCost();
-        Node* GetPreviousNode();
+        Node GetPreviousNode();
         void SetGCost(int value);
         void SetHCost(int value);  
         void SetX(int value);
         void SetY(int value);
-        void SetPreviousNode(Node* node);
+        void SetPreviousNode(Node node);
         bool operator ==(const Node& B);
-        Node* previousNode;
+        std::vector<Node> previousNode;
     private :
         int gCost;
         int hCost;
