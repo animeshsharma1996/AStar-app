@@ -18,8 +18,8 @@ void Draw::CreateGrid()
         {
             grid[i][j].cell.setTexture(cellTexture);
             grid[i][j].cell.setPosition(size * i, size * j);
-            grid[i][j].gridX = i; 
-            grid[i][j].gridX = j; 
+            grid[i][j].SetX(i); 
+            grid[i][j].SetY(j);
         }
     }
 }
@@ -42,8 +42,8 @@ void Draw::CreatePath(vector<Node> path)
 {
     for (int i = 0; i < path.size(); ++i)
     {
-        grid[path[i].gridX][path[i].gridY].cell.setTexture(pathTexture);
-        std::cout << path[i].gridX<< path[i].gridY << std::endl;
+        grid[path[i].GetX()][path[i].GetY()].cell.setTexture(pathTexture);
+        std::cout << path[i].GetX() << path[i].GetY() << std::endl;
     }
     
 }

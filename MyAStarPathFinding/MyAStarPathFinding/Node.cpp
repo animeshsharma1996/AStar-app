@@ -1,10 +1,10 @@
 #include "Node.h"
 
-Node::Node(int x, int y)
+Node::Node(int* x, int* y)
 {
-	gridX = x;
-	gridY = y;
-	gCost = 0;
+	gridX = *x;
+	gridY = *y;
+	gCost = INT_MAX;
 	hCost = 0;
 	previousNode = NULL;
 	isWall = false;
@@ -12,13 +12,25 @@ Node::Node(int x, int y)
 
 int Node::FCost() {	return (gCost+hCost); }
 
+int Node::GetX() { return gridX; }
+
+int Node::GetY() { return gridY; }
+
 int Node::GetGCost() { return gCost; }
 
 int Node::GetHCost() { return hCost; }
 
+Node* Node::GetPreviousNode()  { return previousNode; }
+
 void Node::SetGCost(int value) { gCost = value; }
 
 void Node::SetHCost(int value) { hCost = value; }
+
+void Node::SetX(int value) { gridX = value; }
+
+void Node::SetY(int value) { gridY = value; }
+
+void Node::SetPreviousNode(Node* node) { previousNode = node; }
 
 Node::Node()
 {
@@ -52,5 +64,5 @@ void Node::AddNeighbours(Node grid[][28],int x, int y)
 
 bool Node::operator ==(const Node& B)
 {
-	return ((this->gridX == B.gridX) && (this->gridY == B.gridY));
+	return ((gridX == B.gridX) && (gridY == B.gridY));
 }

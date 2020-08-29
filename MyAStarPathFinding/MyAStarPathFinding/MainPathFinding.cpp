@@ -50,11 +50,18 @@ void GeneratePath(Draw* draw)
     Vector2i startPos = EventHandler::GetStartPos();
     Vector2i endPos = EventHandler::GetEndPos();
 
-    Node* start = new Node(startPos.x,startPos.y);
-    Node* end = new Node(endPos.x, endPos.x);
+    Node* start = new Node(&startPos.x,&startPos.y);
+    Node* end = new Node(&endPos.x, &endPos.y);
 
-    draw->CreatePath(AStar::FindPath(draw,draw->grid,start, end));
-    //draw->CreateOpenNodes(AStar::openList);
+    cout << start->GetX() << " " << start->GetY() << endl;
+    cout << end->GetX() << " " << end->GetY() << endl;
+
+    vector<Node> pathFound = AStar::FindPath(draw, draw->grid, start, end);
+    draw->CreatePath(pathFound);
+    for (int i = 0; i < pathFound.size(); ++i)
+    {
+        cout << pathFound[i].GetX() << endl;
+    }
 }
 
 void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
@@ -79,7 +86,8 @@ void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
         }
     }
 
-    if (wallsBlock) GeneratePath(draw);
+    if (wallsBlock) 
+        GeneratePath(draw);
 }
 
 void DrawWindow()
@@ -103,7 +111,9 @@ void DrawWindow()
         sf::Event e;
         while (window.pollEvent(e))
         {
-            if (e.type == sf::Event::Closed) window.close();
+            if (e.type == sf::Event::Closed) 
+                window.close();
+
             MouseEvent(e, draw, mousePosition);
         }
         

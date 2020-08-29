@@ -51,7 +51,7 @@ void EventHandler::CheckEnterStart(sf::Event e)
 	if (e.key.code == sf::Keyboard::Enter && (GetStartPos().x >= 0))
 	{
 		SetStartCheck(true);
-		std::cout << "Start is Set" << std::endl;
+		std::cout << "Start is Set " << startPos.x << " " << startPos.y << std::endl;
 	}
 }
 
@@ -60,7 +60,7 @@ void EventHandler::CheckEnterEnd(sf::Event e)
 	if (e.key.code == sf::Keyboard::Enter && GetStartCheck() && (GetEndPos().x >= 0))
 	{
 		SetEndCheck(true);
-		std::cout << "End is Set" << std::endl;
+		std::cout << "End is Set " << endPos.x << " " << endPos.y << std::endl;
 	}
 }
 

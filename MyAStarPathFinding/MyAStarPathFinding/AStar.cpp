@@ -19,7 +19,9 @@ bool AStar::IsValidPath(Node* start, Node* end)
 
 int AStar::Heuristic(Node* a, Node* b)
 {
-	return (abs(a->gridX - b->gridX) + abs(a->gridY - b->gridY));
+	int distanceX = abs(a->GetX() - b->GetY());
+	int distanceY = abs(a->GetX() - b->GetY());
+	return (14*std::min(distanceX,distanceY) + 10* abs(distanceX - distanceY));
 }
 
 vector<Node> AStar::FindPath(Draw* draw,Node grid[][28], Node* start, Node* end)
@@ -55,26 +57,32 @@ vector<Node> AStar::FindPath(Draw* draw,Node grid[][28], Node* start, Node* end)
 
 		}
 		Node currentNode = openList[leastFNode];
-		//d) i) if successor is the goal, stop search
-		if (&currentNode == end)
+		cout << "Path is not valid" << endl;
+																										//d) i) if successor is the goal, stop search
+		if (currentNode.GetX() == end->GetX() && currentNode.GetY() == end->GetY())
 		{
-			Node tempCNode = currentNode;
+			Node* tempCNode = &currentNode;
 			path.push_back(currentNode);
-			while (tempCNode.previousNode != start)
+			while (!(tempCNode->GetPreviousNode()->GetX() == start->GetX() && tempCNode->GetPreviousNode()->GetY() == start->GetY()))
 			{
-				path.push_back(*tempCNode.previousNode);
-				tempCNode = *tempCNode.previousNode;
+				tempCNode = tempCNode->GetPreviousNode();
+				path.push_back(*tempCNode);
+
+				if(&tempCNode->operator==(*end))
+			      cout << tempCNode->GetX() << " ," << tempCNode->GetY()  << endl;
 			}
 			return path;
 		}
 
-		draw->CreateOpenNodes(currentNode);
-		vector<Node>::iterator it = openList.begin() + leastFNode;
+		//draw->CreateOpenNodes(currentNode);
+		//currentNode.cell.setColor(sf::Color::Red);
+		vector<Node>::iterator it = std::find(openList.begin(), openList.end(), currentNode);
 		openList.erase(it);															        //b) Pop leastFNode off the open list
-	
+		
 		closedList.push_back(currentNode);
 
-		currentNode.AddNeighbours(grid,currentNode.gridX,currentNode.gridY);
+		currentNode.AddNeighbours(grid,currentNode.GetX(),currentNode.GetX());
+		//cout << currentNode.GetX() << " ," << currentNode.GetY() << "," << end->GetX() << "," << end->GetY() << endl;
 		vector<Node> neighbours = currentNode.neighbours;								    //c) Generate neighbours for leastFNode
 		for (size_t i = 0; i < neighbours.size(); ++i)
 		{
@@ -88,20 +96,18 @@ vector<Node> AStar::FindPath(Draw* draw,Node grid[][28], Node* start, Node* end)
 			if (iterator2 != closedList.end()) continue;
 
 			int tempGCost = currentNode.GetGCost() + Heuristic(&currentNode, &neighbours[i]);
-
 			if (tempGCost < neighbours[i].GetGCost())
 			{
-				neighbours[i].previousNode = &currentNode;
+				neighbours[i].SetPreviousNode( &currentNode);
+				neighbours[i].SetGCost(tempGCost);
 				neighbours[i].SetHCost(Heuristic(&neighbours[i], end));
-				cout << neighbours[i].GetHCost() << endl;
 				vector<Node>::iterator iterator1 = std::find(openList.begin(), openList.end(), neighbours[i]);
-				if (iterator1 != openList.end())
+				if (iterator1 == openList.end())
 				{
 					openList.push_back(neighbours[i]);
 				}
 			}
 
-			cout << neighbours[i].GetHCost() << endl;
 		}
 
 	}
