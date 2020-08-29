@@ -50,17 +50,14 @@ void GeneratePath(Draw* draw)
     Vector2i startPos = EventHandler::GetStartPos();
     Vector2i endPos = EventHandler::GetEndPos();
 
-    Node* start = new Node(&startPos.x,&startPos.y);
-    Node* end = new Node(&endPos.x, &endPos.y);
+    Node* start = new Node(startPos.x,startPos.y);
+    Node* end = new Node(endPos.x, endPos.y);
 
-    cout << start->GetX() << " " << start->GetY() << endl;
-    cout << end->GetX() << " " << end->GetY() << endl;
-
-    vector<Node> pathFound = AStar::FindPath(draw, draw->grid, start, end);
+    vector<Node> pathFound = AStar::FindPath(draw, draw->grid, *start, *end);
     draw->CreatePath(pathFound);
     for (int i = 0; i < pathFound.size(); ++i)
     {
-        cout << pathFound[i].GetX() << endl;
+        cout << pathFound[i].GetX() << " " << pathFound[i].GetY() << endl;
     }
 }
 

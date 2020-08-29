@@ -13,7 +13,7 @@ class Draw
 			{
 				for (int j = 0; j < 28; ++j)
 				{
-					Node* node = new Node(&i, &j);
+					Node* node = new Node(i, j);
 					grid[i][j] = *node;
 				}
 			}

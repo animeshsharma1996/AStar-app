@@ -23,7 +23,7 @@ bool EventHandler::GetWallsCheck() { return areWallsSet; }
 void EventHandler::SetStartPos(sf::Vector2i mousePosition)
 {
 	startPos.x = floor(mousePosition.x / 16);
-	startPos.y = (mousePosition.y / 16);
+	startPos.y = floor(mousePosition.y / 16);
 }
 
 void EventHandler::SetEndPos(sf::Vector2i mousePosition)

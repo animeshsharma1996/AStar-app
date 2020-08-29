@@ -1,10 +1,10 @@
 #include "Node.h"
 
-Node::Node(int* x, int* y)
+Node::Node(int x, int y)
 {
-	gridX = *x;
-	gridY = *y;
-	gCost = INT_MAX;
+	gridX = x;
+	gridY = y;
+	gCost = 10000;
 	hCost = 0;
 	previousNode = NULL;
 	isWall = false;
@@ -20,7 +20,7 @@ int Node::GetGCost() { return gCost; }
 
 int Node::GetHCost() { return hCost; }
 
-Node* Node::GetPreviousNode()  { return previousNode; }
+Node Node::GetPreviousNode()  { if(previousNode != NULL) return *previousNode; }
 
 void Node::SetGCost(int value) { gCost = value; }
 
@@ -30,7 +30,7 @@ void Node::SetX(int value) { gridX = value; }
 
 void Node::SetY(int value) { gridY = value; }
 
-void Node::SetPreviousNode(Node* node) { previousNode = node; }
+void Node::SetPreviousNode(Node node) { previousNode = &node; }
 
 Node::Node()
 {
@@ -38,7 +38,6 @@ Node::Node()
 	gridY = 0;
 	gCost = 0;
 	hCost = 0;
-	previousNode = NULL;
 	isWall = false;
 }
 

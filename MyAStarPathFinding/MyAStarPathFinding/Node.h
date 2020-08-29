@@ -8,7 +8,7 @@ class Node
 {
     public :
         Node();
-        Node(int* x, int* y);  //: gridX(x), gridY(y) , gCost(0), hCost(0), isWall(0), previousNode(NULL)
+        Node(int x, int y);  //: gridX(x), gridY(y) , gCost(0), hCost(0), isWall(0), previousNode(NULL)
         bool isWall;
         std::vector<Node> neighbours;
         sf::Sprite cell;
@@ -18,12 +18,12 @@ class Node
         int GetY();
         int GetGCost();
         int GetHCost();
-        Node* GetPreviousNode();
+        Node GetPreviousNode();
         void SetGCost(int value);
         void SetHCost(int value);  
         void SetX(int value);
         void SetY(int value);
-        void SetPreviousNode(Node* node);
+        void SetPreviousNode(Node node);
 
         bool operator ==(const Node& B);
     private :

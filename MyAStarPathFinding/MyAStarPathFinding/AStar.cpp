@@ -17,26 +17,33 @@ bool AStar::IsValidPath(Node* start, Node* end)
 	return true;
 }
 
-int AStar::Heuristic(Node* a, Node* b)
+bool AStar::Comparer(Node* a, Node* b)
 {
-	int distanceX = abs(a->GetX() - b->GetY());
-	int distanceY = abs(a->GetX() - b->GetY());
-	return (14*std::min(distanceX,distanceY) + 10* abs(distanceX - distanceY));
+	return (a->GetX() == b->GetX() && a->GetY() == b->GetY());
 }
 
-vector<Node> AStar::FindPath(Draw* draw,Node grid[][28], Node* start, Node* end)
+int AStar::Heuristic(Node* a, Node* b)
+{
+	int distanceX = abs(a->GetX() - b->GetX());
+	int distanceY = abs(a->GetY() - b->GetY());
+	return (14*std::min(distanceX,distanceY) + 10*abs(distanceX - distanceY));
+}
+
+vector<Node> AStar::FindPath(Draw* draw,Node grid[][28], Node start, Node end)
 {
 	vector<Node> path;
 
-	if (!IsValidPath(start, end))  
+	if (!IsValidPath(&start, &end))  
 		cout << "Path is not valid" << endl;
 
 	vector<Node> openList;
 	vector<Node> closedList;
-	openList.push_back(*start);
 
-	start->SetGCost(0);
-	start->SetHCost(Heuristic(start, end));
+	start.SetGCost(0);
+	start.SetHCost(Heuristic(&start, &end));
+
+
+	openList.push_back(start);
 
 	while (!openList.empty())
 	{
@@ -57,36 +64,39 @@ vector<Node> AStar::FindPath(Draw* draw,Node grid[][28], Node* start, Node* end)
 
 		}
 		Node currentNode = openList[leastFNode];
-		cout << "Path is not valid" << endl;
-																										//d) i) if successor is the goal, stop search
-		if (currentNode.GetX() == end->GetX() && currentNode.GetY() == end->GetY())
+															//d) i) if successor is the goal, stop search
+		if (Comparer(&currentNode,&end))
 		{
-			Node* tempCNode = &currentNode;
-			path.push_back(currentNode);
-			while (!(tempCNode->GetPreviousNode()->GetX() == start->GetX() && tempCNode->GetPreviousNode()->GetY() == start->GetY()))
-			{
-				tempCNode = tempCNode->GetPreviousNode();
-				path.push_back(*tempCNode);
 
-				if(&tempCNode->operator==(*end))
-			      cout << tempCNode->GetX() << " ," << tempCNode->GetY()  << endl;
+			Node tempCNode = currentNode;
+			path.push_back(currentNode);
+			if (&tempCNode.GetPreviousNode() != nullptr)
+			{
+				/*cout << tempCNode.GetPreviousNode().GetX() << " " << tempCNode.GetPreviousNode().GetY() << endl;
+				cout << tempCNode.GetX() << " " << tempCNode.GetY() << endl;*/
+				while (!Comparer(&tempCNode.GetPreviousNode(), &start))
+				{
+					tempCNode = tempCNode.GetPreviousNode();
+					path.push_back(tempCNode);
+				}
 			}
 			return path;
 		}
-
+	
 		//draw->CreateOpenNodes(currentNode);
 		//currentNode.cell.setColor(sf::Color::Red);
+
 		vector<Node>::iterator it = std::find(openList.begin(), openList.end(), currentNode);
 		openList.erase(it);															        //b) Pop leastFNode off the open list
-		
 		closedList.push_back(currentNode);
 
-		currentNode.AddNeighbours(grid,currentNode.GetX(),currentNode.GetX());
-		//cout << currentNode.GetX() << " ," << currentNode.GetY() << "," << end->GetX() << "," << end->GetY() << endl;
+		currentNode.AddNeighbours(grid,currentNode.GetX(),currentNode.GetY());
 		vector<Node> neighbours = currentNode.neighbours;								    //c) Generate neighbours for leastFNode
+
 		for (size_t i = 0; i < neighbours.size(); ++i)
 		{
-			if (neighbours[i].isWall && &neighbours[i] != end)
+			
+			if (neighbours[i].isWall)
 			{
 				closedList.push_back(neighbours[i]);
 				continue;
@@ -96,11 +106,15 @@ vector<Node> AStar::FindPath(Draw* draw,Node grid[][28], Node* start, Node* end)
 			if (iterator2 != closedList.end()) continue;
 
 			int tempGCost = currentNode.GetGCost() + Heuristic(&currentNode, &neighbours[i]);
+
 			if (tempGCost < neighbours[i].GetGCost())
 			{
-				neighbours[i].SetPreviousNode( &currentNode);
+				neighbours[i].SetPreviousNode( currentNode);
 				neighbours[i].SetGCost(tempGCost);
-				neighbours[i].SetHCost(Heuristic(&neighbours[i], end));
+				neighbours[i].SetHCost(Heuristic(&neighbours[i], &end));
+				cout << currentNode.GetX() << " " << currentNode.GetY() << endl;
+				cout << "Neighbour " << neighbours[i].GetX() << " " << neighbours[i].GetY() << " Previous " << neighbours[i].GetPreviousNode().GetX() << " " << neighbours[i].GetPreviousNode().GetY() << endl; // " Current ka Previous " << currentNode.GetPreviousNode().GetX() << " " << currentNode.GetPreviousNode().GetY() << endl;
+
 				vector<Node>::iterator iterator1 = std::find(openList.begin(), openList.end(), neighbours[i]);
 				if (iterator1 == openList.end())
 				{
