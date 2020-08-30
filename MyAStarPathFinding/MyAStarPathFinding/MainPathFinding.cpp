@@ -54,8 +54,8 @@ void GeneratePath(Draw* draw)
     Node* end = new Node(endPos.x, endPos.y);
 
     vector<Node> pathFound = AStar::FindPath(draw, draw->grid, *start, *end);
-   /* draw->CreateOpenList(AStar::openList);
-    draw->CreateClosedList(AStar::closedList);*/
+    draw->CreateOpenList(AStar::openList);
+    draw->CreateClosedList(AStar::closedList);
     draw->CreatePath(pathFound);
 }
 

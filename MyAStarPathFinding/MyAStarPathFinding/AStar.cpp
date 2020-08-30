@@ -66,23 +66,14 @@ vector<Node> AStar::FindPath(Draw* draw, Node grid[][28], Node start, Node end)
 		if (Comparer(&currentNode, &end))
 		{
 			Node tempCNode = currentNode;
-		/*	cout << currentNode.GetX() << " " << currentNode.GetY() << endl;
-			cout << currentNode.GetPreviousNode().GetX() << " " << currentNode.GetPreviousNode().GetY() << endl;
-			cout << tempCNode.GetPreviousNode().GetX() << " " << tempCNode.GetPreviousNode().GetX() << endl;*/
-			//path.push_back(currentNode);
-			if (&tempCNode.GetPreviousNode() != nullptr)
+			path.push_back(currentNode);
+			while (!Comparer(&tempCNode.GetPreviousNode(), &start))
 			{
-				while (!Comparer(&tempCNode.GetPreviousNode(), &start))
-				{
-					tempCNode = tempCNode.GetPreviousNode();
-					//cout << tempCNode.GetX() << "  " << tempCNode.GetY() << endl;
-					path.push_back(tempCNode);
-				}
+				tempCNode = tempCNode.GetPreviousNode();
+				//cout << tempCNode.GetX() << "  " << tempCNode.GetY() << endl;
+				path.push_back(tempCNode);
 			}
-			else
-			{
-				cout << " Dont have previous Nodes  " << endl;
-			}
+
 			return path;
 		}
 
@@ -97,7 +88,7 @@ vector<Node> AStar::FindPath(Draw* draw, Node grid[][28], Node start, Node end)
 		{
 			if (neighbours[i].isWall)
 			{
-				closedList.push_back(neighbours[i]);
+				//closedList.push_back(neighbours[i]);
 				continue;
 			}
 
@@ -123,10 +114,8 @@ vector<Node> AStar::FindPath(Draw* draw, Node grid[][28], Node start, Node end)
 
 	}
 
-	//vector<Node>::iterator it2 = std::find(openList.begin(), openList.end(), start);
-	//openList.erase(it2);
-	//vector<Node>::iterator it3 = std::find(openList.begin(), openList.end(), end);
-	//closedList.erase(it3);
+	openList.erase(std::find(openList.begin(), openList.end(), end));
+	closedList.erase(std::find(closedList.begin(), closedList.end(), start));
 
 	return path;
 }
