@@ -6,7 +6,6 @@ Node::Node(int x, int y)
 	gridY = y;
 	gCost = 10000;
 	hCost = 0;
-	previousNode = nullptr;
 	isWall = false;
 }
 
@@ -20,7 +19,7 @@ int Node::GetGCost() { return gCost; }
 
 int Node::GetHCost() { return hCost; }
 
-Node* Node::GetPreviousNode() {	return previousNode; }
+Node Node::GetPreviousNode() {	return previousNode[0]; }
 
 void Node::SetGCost(int value) { gCost = value; }
 
@@ -30,7 +29,7 @@ void Node::SetX(int value) { gridX = value; }
 
 void Node::SetY(int value) { gridY = value; }
 
-void Node::SetPreviousNode(Node* node) { previousNode = node;}
+void Node::SetPreviousNode(Node node) { previousNode.push_back(node);}
 
 Node::Node()
 {
