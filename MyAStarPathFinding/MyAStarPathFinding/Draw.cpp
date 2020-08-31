@@ -40,18 +40,30 @@ void Draw::RefreshGrid()
 
 void Draw::CreatePath(vector<Node> path)
 {
-    for (int i = 0; i < path.size(); ++i)
+    for (int i = 1; i < path.size(); ++i)
     {
         grid[path[i].GetX()][path[i].GetY()].cell.setTexture(pathTexture);
-        std::cout << path[i].GetX() << path[i].GetY() << std::endl;
+        //std::cout << path[i].GetX() << path[i].GetY() << std::endl;
     }
     
 }
 
-void Draw::CreateOpenNodes(Node node)
+void Draw::CreateOpenList(vector<Node> nodes)
 {
-    node.cell.setTexture(nodeTexture);    
+    for (int i = 0; i < nodes.size(); ++i)
+    {
+        grid[nodes[i].GetX()][nodes[i].GetY()].cell.setTexture(openNodeTexture);
+    }
 }
+
+void Draw::CreateClosedList(vector<Node> nodes)
+{
+    for (int i = 0; i < nodes.size(); ++i)
+    {
+        grid[nodes[i].GetX()][nodes[i].GetY()].cell.setTexture(closedNodeTexture);
+    }
+}
+
 
 int Draw::LoadBlockTexture()
 {
@@ -99,9 +111,18 @@ int Draw::LoadPathTexture()
 }
 
 
-int Draw::LoadNodesTexture()
+int Draw::LoadOpenNodeTexture()
 {
-    if (!nodeTexture.loadFromFile("images/block_open.bmp"))
+    if (!openNodeTexture.loadFromFile("images/block_open.bmp"))
+    {
+        std::cout << "Could not Node texture" << std::endl;
+        return 0;
+    }
+}
+
+int Draw::LoadClosedNodeTexture()
+{
+    if (!closedNodeTexture.loadFromFile("images/block_closed.bmp"))
     {
         std::cout << "Could not Node texture" << std::endl;
         return 0;

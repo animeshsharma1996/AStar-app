@@ -29,7 +29,7 @@ void Node::SetX(int value) { gridX = value; }
 
 void Node::SetY(int value) { gridY = value; }
 
-void Node::SetPreviousNode(Node node) { previousNode.push_back( node);}
+void Node::SetPreviousNode(Node node) { previousNode.push_back(node);}
 
 Node::Node()
 {

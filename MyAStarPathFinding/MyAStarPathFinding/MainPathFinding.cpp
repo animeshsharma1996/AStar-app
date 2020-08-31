@@ -54,11 +54,9 @@ void GeneratePath(Draw* draw)
     Node* end = new Node(endPos.x, endPos.y);
 
     vector<Node> pathFound = AStar::FindPath(draw, draw->grid, *start, *end);
+    draw->CreateOpenList(AStar::openList);
+    draw->CreateClosedList(AStar::closedList);
     draw->CreatePath(pathFound);
-    for (int i = 0; i < pathFound.size(); ++i)
-    {
-        cout << pathFound[i].GetX() << " " << pathFound[i].GetY() << endl;
-    }
 }
 
 void MouseEvent(Event e, Draw* draw, Vector2i mousePosition)
@@ -97,7 +95,8 @@ void DrawWindow()
     draw->LoadStartTexture();
     draw->LoadEndTexture();
     draw->LoadWallTexture();
-    draw->LoadNodesTexture();
+    draw->LoadOpenNodeTexture();
+    draw->LoadClosedNodeTexture();
     draw->LoadPathTexture();
     draw->CreateGrid();
 

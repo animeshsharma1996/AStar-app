@@ -25,11 +25,11 @@ class Node
         void SetY(int value);
         void SetPreviousNode(Node node);
         bool operator ==(const Node& B);
-        std::vector<Node> previousNode;
     private :
         int gCost;
         int hCost;
         int gridX;
         int gridY;
+        std::vector<Node> previousNode;
 };
 
