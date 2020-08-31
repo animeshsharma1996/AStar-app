@@ -8,7 +8,7 @@ class Node
 {
     public :
         Node();
-        Node(int x, int y);  //: gridX(x), gridY(y) , gCost(0), hCost(0), isWall(0), previousNode(NULL)
+        Node(int x, int y);  
         bool isWall;
         std::vector<Node> neighbours;
         sf::Sprite cell;
